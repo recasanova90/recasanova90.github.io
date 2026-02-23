@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications — Reggie Casanova-Perez</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1; --secondary: #ec4899;
+            --teal: #14b8a6; --purple: #a855f7;
+            --dark: #1e293b; --gray: #64748b;
+            --light-gray: #f1f5f9; --border: #e2e8f0;
+        }
+        body { font-family: 'Inter', sans-serif; color: var(--dark); background: #fff; line-height: 1.7; }
+
+        header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 1.25rem 0; }
+        nav { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1rem; font-weight: 700; text-decoration: none; color: var(--dark); letter-spacing: -0.3px; }
+        .logo span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.3s; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .grad { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        .page-header { max-width: 1100px; margin: 0 auto; padding: 9rem 2rem 4rem; }
+        .page-header .eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 1rem; }
+        .page-header h1 { font-size: clamp(2.25rem, 4vw, 3rem); font-weight: 700; letter-spacing: -1px; line-height: 1.15; margin-bottom: 1.5rem; }
+        .page-header p { font-size: 1.05rem; color: var(--gray); max-width: 640px; line-height: 1.85; }
+
+        .page-header .scholar-link {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.88rem; font-weight: 600; color: var(--primary);
+            text-decoration: none; border: 1.5px solid var(--border);
+            padding: 0.6rem 1.25rem; border-radius: 8px; transition: all 0.2s;
+        }
+        .page-header .scholar-link:hover { border-color: var(--primary); background: #f8f7ff; }
+
+        /* STATS BAR */
+        .stats-bar {
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            background: var(--light-gray);
+        }
+        .stats-bar-inner {
+            max-width: 1100px; margin: 0 auto; padding: 2rem;
+            display: flex; gap: 3rem; flex-wrap: wrap;
+        }
+        .stat { display: flex; flex-direction: column; }
+        .stat-n { font-size: 2rem; font-weight: 700; letter-spacing: -1px; line-height: 1; }
+        .stat-n.c1 { color: var(--primary); }
+        .stat-n.c2 { color: var(--secondary); }
+        .stat-n.c3 { color: var(--teal); }
+        .stat-n.c4 { color: var(--purple); }
+        .stat-label { font-size: 0.8rem; color: var(--gray); margin-top: 0.2rem; }
+
+        /* PUB SECTION */
+        .pub-section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+        .pub-section + .pub-section { border-top: 1px solid var(--border); padding-top: 3rem; }
+        .pub-section-title {
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--primary);
+            margin-bottom: 2rem; padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .pub-item {
+            display: grid; grid-template-columns: 2.5rem 1fr;
+            gap: 1.25rem; padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .pub-item:last-child { border-bottom: none; }
+
+        .pub-num { font-size: 0.85rem; font-weight: 600; color: var(--gray); padding-top: 0.15rem; }
+
+        .pub-body {}
+        .pub-title {
+            font-size: 1rem; font-weight: 600;
+            color: var(--dark); line-height: 1.45; margin-bottom: 0.4rem;
+        }
+        .pub-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+        .pub-title a:hover { color: var(--primary); }
+
+        .pub-authors { font-size: 0.87rem; color: var(--gray); margin-bottom: 0.35rem; }
+        .pub-authors strong { color: var(--primary); font-weight: 600; }
+
+        .pub-venue { font-size: 0.85rem; color: var(--gray); font-style: italic; margin-bottom: 0.75rem; }
+
+        .pub-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .badge {
+            font-size: 0.68rem; font-weight: 600; letter-spacing: 0.03em;
+            padding: 0.2rem 0.65rem; border-radius: 100px;
+        }
+        .b-first { background: #eef2ff; color: var(--primary); }
+        .b-cofirst { background: #fdf4ff; color: var(--purple); }
+        .b-journal { background: #dcfce7; color: #15803d; }
+        .b-conf { background: #e0f2fe; color: #075985; }
+        .b-poster { background: #fef9c3; color: #854d0e; }
+        .b-workshop { background: #fce7f3; color: #9d174d; }
+
+        footer { background: var(--light-gray); border-top: 1px solid var(--border); text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--gray); }
+
+        @media (max-width: 600px) {
+            .pub-item { grid-template-columns: 1fr; }
+            .pub-num { display: none; }
+            .stats-bar-inner { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">Reggie <span>Casanova-Perez</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="publications.html" class="active">Publications</a></li>
+            <li><a href="cv.html">CV</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="page-header">
+        <p class="eyebrow">Publications</p>
+        <h1>Peer-reviewed work across<br><span class="grad">informatics, HCI &amp; equity</span></h1>
+        <p>Published in JAMIA, AMIA, CHI, Journal of Biomedical Informatics, and JAMIA Open. Work spans health equity, bias in clinical AI, participatory design, and intersectionality in biomedical informatics.</p>
+        <a href="https://scholar.google.com/citations?user=yLPHD20AAAAJ&hl=es" target="_blank" class="scholar-link">
+            📚 View full profile on Google Scholar
+        </a>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stats-bar-inner">
+            <div class="stat"><span class="stat-n c1">3</span><span class="stat-label">First / co-first author papers</span></div>
+            <div class="stat"><span class="stat-n c2">4</span><span class="stat-label">Journal articles</span></div>
+            <div class="stat"><span class="stat-n c3">6</span><span class="stat-label">Conference proceedings</span></div>
+            <div class="stat"><span class="stat-n c4">3</span><span class="stat-label">Posters &amp; workshops</span></div>
+        </div>
+    </div>
+
+    <!-- FIRST / CO-FIRST AUTHOR -->
+    <div class="pub-section">
+        <p class="pub-section-title">First &amp; Co-First Author Work</p>
+
+        <div class="pub-item">
+            <div class="pub-num">1</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8861755/" target="_blank">Broken down by bias: Healthcare biases experienced by BIPOC and LGBTQ+ patients</a></p>
+                <p class="pub-authors"><strong>R Casanova-Perez</strong>, C Apodaca, E Bascom, D Mohanraj, C Lane, D Vidyarthi, E Beneteau, J Sabin, W Pratt, N Weibel, AL Hartzler</p>
+                <p class="pub-venue">AMIA Annual Symposium Proceedings, 2022;2021:275–284</p>
+                <div class="pub-badges">
+                    <span class="badge b-first">First Author</span>
+                    <span class="badge b-conf">AMIA 2022</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">2</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://academic.oup.com/jamia/article-abstract/29/12/2075/6672572" target="_blank">Maybe they had a bad day: how LGBTQ and BIPOC patients react to bias in healthcare and struggle to speak out</a></p>
+                <p class="pub-authors">C Apodaca*, <strong>R Casanova-Perez*</strong>, E Bascom, D Mohanraj, C Lane, D Vidyarthi, E Beneteau, J Sabin, W Pratt, N Weibel, AL Hartzler <em>(*co-first authors)</em></p>
+                <p class="pub-venue">Journal of the American Medical Informatics Association, 29(12):2075–2082, 2022</p>
+                <div class="pub-badges">
+                    <span class="badge b-cofirst">Co-First Author</span>
+                    <span class="badge b-journal">JAMIA</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">3</div>
+            <div class="pub-body">
+                <p class="pub-title">Queering the EHR: Uncovering the embedded cisheteronormativity in health information technology</p>
+                <p class="pub-authors"><strong>R Casanova-Perez</strong>, W Pratt, AL Hartzler</p>
+                <p class="pub-venue">AMIA Annual Symposium Proceedings, 2022</p>
+                <div class="pub-badges">
+                    <span class="badge b-first">First Author</span>
+                    <span class="badge b-poster">Poster · AMIA 2022</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">4</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5977615/" target="_blank">Home Behavior Monitoring Module in OpenEMR: Use of home sensors as Patient-Generated Data (PGD) for elderly care</a></p>
+                <p class="pub-authors"><strong>RA Casanova-Perez</strong>, PG Padilla-Huamantinco, CI De Freitas-Vidal, YK Choi</p>
+                <p class="pub-venue">AMIA Annual Symposium Proceedings, 2018;2017:2279–2283</p>
+                <div class="pub-badges">
+                    <span class="badge b-first">First Author</span>
+                    <span class="badge b-conf">AMIA 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JOURNAL ARTICLES -->
+    <div class="pub-section">
+        <p class="pub-section-title">Journal Articles</p>
+
+        <div class="pub-item">
+            <div class="pub-num">5</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://www.sciencedirect.com/science/article/pii/S1532046424000716" target="_blank">Opportunities for incorporating intersectionality into biomedical informatics</a></p>
+                <p class="pub-authors">OJ Bear Don't Walk, A Paullada, A Everhart, <strong>R Casanova-Perez</strong>, T Cohen, T Veinot</p>
+                <p class="pub-venue">Journal of Biomedical Informatics, 154:104653, 2024</p>
+                <div class="pub-badges"><span class="badge b-journal">J Biomed Inform</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">6</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://academic.oup.com/jamiaopen/article-abstract/7/4/ooae106/7826763" target="_blank">Artificial intelligence-generated feedback on social signals in patient–provider communication: technical performance, feedback usability, and impact</a></p>
+                <p class="pub-authors">MS Bedmutha, E Bascom, KR Sladek, K Tobar, <strong>R Casanova-Perez</strong>, A Andreiu, A Bhat, S Mangal, BR Wood, J Sabin, W Pratt, N Weibel, AL Hartzler</p>
+                <p class="pub-venue">JAMIA Open, 7(4):ooae106, 2024</p>
+                <div class="pub-badges"><span class="badge b-journal">JAMIA Open</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">7</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://dl.acm.org/doi/abs/10.1145/3449238" target="_blank">Supporting Goal-Based Collaboration for Hospitalized Children</a></p>
+                <p class="pub-authors">Y Zhao, Y Kim, C Apodaca, <strong>R Casanova-Perez</strong>, S Haldar, SR Mishra, et al.</p>
+                <p class="pub-venue">Proceedings of the ACM on Human-Computer Interaction, 5(CSCW1):Article 164, 2021</p>
+                <div class="pub-badges"><span class="badge b-journal">CSCW</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFERENCE PROCEEDINGS -->
+    <div class="pub-section">
+        <p class="pub-section-title">Conference Proceedings</p>
+
+        <div class="pub-item">
+            <div class="pub-num">8</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://dl.acm.org/doi/full/10.1145/3613904.3642756" target="_blank">Designing Communication Feedback Systems To Reduce Healthcare Providers' Implicit Biases In Patient Encounters</a></p>
+                <p class="pub-authors">E Bascom, <strong>R Casanova-Perez</strong>, L Dirks, C Lane, N Rizvi, J Sabin, W Pratt, B Wood, N Weibel, AL Hartzler</p>
+                <p class="pub-venue">ACM CHI Conference on Human Factors in Computing Systems, 2024</p>
+                <div class="pub-badges"><span class="badge b-conf">CHI 2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">9</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://dl.acm.org/doi/full/10.1145/3613904.3641998" target="_blank">ConverSense: An Automated Approach to Assess Patient-Provider Interactions using Social Signals</a></p>
+                <p class="pub-authors">MS Bedmutha, A Tsedenbal, K Tobar, S Borsotto, KR Sladek, D Singh, <strong>R Casanova-Perez</strong>, et al.</p>
+                <p class="pub-venue">ACM CHI Conference on Human Factors in Computing Systems, 2024</p>
+                <div class="pub-badges"><span class="badge b-conf">CHI 2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">10</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10785874/" target="_blank">Imagining Improved Interactions: Patients' Designs To Address Implicit Bias</a></p>
+                <p class="pub-authors">C Yang, L Coney, D Mohanraj, <strong>R Casanova-Perez</strong>, E Bascom, N Efrem, J Tan Garcia, J Sabin, W Pratt, N Weibel, A Hartzler</p>
+                <p class="pub-venue">AMIA Annual Symposium Proceedings, 2024;2023:774–783</p>
+                <div class="pub-badges"><span class="badge b-conf">AMIA 2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">11</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10785891/" target="_blank">Improving physical activity among prostate cancer survivors through a peer-based digital walking program</a></p>
+                <p class="pub-authors">S Sangameswaran, <strong>R Casanova-Perez</strong>, H Patel, et al.</p>
+                <p class="pub-venue">AMIA Annual Symposium Proceedings, 2023;2023:608–617</p>
+                <div class="pub-badges"><span class="badge b-conf">AMIA 2023</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">12</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8861760/" target="_blank">Toward Patient-Centered Informatics Solutions: The Role of Intersectionality</a></p>
+                <p class="pub-authors">E Bascom, <strong>R Casanova-Perez</strong>, H Ramaswamy, D Mohanraj, J Sabin, W Pratt, N Weibel, AL Hartzler</p>
+                <p class="pub-venue">AMIA Annual Symposium Proceedings, 2021</p>
+                <div class="pub-badges"><span class="badge b-conf">AMIA 2021</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">13</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8861760/" target="_blank">Design of digital walking programs that engage prostate cancer survivors: Needs and preferences from focus groups</a></p>
+                <p class="pub-authors">S Sangameswaran, C Segal, DE Rosenberg, <strong>R Casanova-Perez</strong>, D Cronkite, J Gore, A Hartzler</p>
+                <p class="pub-venue">AMIA Annual Symposium Proceedings, 2022;2021:1069–1078</p>
+                <div class="pub-badges"><span class="badge b-conf">AMIA 2022</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POSTERS & WORKSHOPS -->
+    <div class="pub-section">
+        <p class="pub-section-title">Posters &amp; Workshops</p>
+
+        <div class="pub-item">
+            <div class="pub-num">14</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://dl.acm.org/doi/abs/10.1145/3491101.3503733" target="_blank">QTBIPOC PD: Exploring the Intersections of Race, Gender, and Sexual Orientation in Participatory Design</a></p>
+                <p class="pub-authors">N Rizvi, <strong>R Casanova-Perez</strong>, H Ramaswamy, L Dirks, E Bascom, N Weibel</p>
+                <p class="pub-venue">CHI Extended Abstracts, 2022, Article 120</p>
+                <div class="pub-badges"><span class="badge b-workshop">Workshop · CHI 2022</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">15</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://dl.acm.org/doi/abs/10.1145/3491101.3519825" target="_blank">Battling Bias in Primary Care Encounters: Informatics Designs to Support Clinicians</a></p>
+                <p class="pub-authors">LG Dirks, E Beneteau, <strong>R Casanova-Perez</strong>, C Lane, C Emmenegger, A Hartzler, et al.</p>
+                <p class="pub-venue">CHI Extended Abstracts, 2022, pp. 1–9</p>
+                <div class="pub-badges"><span class="badge b-poster">Poster · CHI 2022</span></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-num">16</div>
+            <div class="pub-body">
+                <p class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/9588550/" target="_blank">Visualization Co-Design with Prostate Cancer Survivors who have Limited Graph Literacy</a></p>
+                <p class="pub-authors">L Snyder, A Saraf, <strong>R Casanova-Perez</strong>, S Connor, S George, A Wang, D Jones, G Mendoza, J Gore, M Litwin, A Hartzler</p>
+                <p class="pub-venue">IEEE Workshop on Visual Analytics in Healthcare (VAHC), 2020, pp. 17–23</p>
+                <div class="pub-badges"><span class="badge b-workshop">Workshop · VAHC 2020</span></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Reggie Casanova-Perez · PhD Candidate, University of Washington · Seattle</p>
+</footer>
+
+</body>
+</html>

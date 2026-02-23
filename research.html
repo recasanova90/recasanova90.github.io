@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research — Reggie Casanova-Perez</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1; --secondary: #ec4899;
+            --teal: #14b8a6; --purple: #a855f7;
+            --dark: #1e293b; --gray: #64748b;
+            --light-gray: #f1f5f9; --border: #e2e8f0;
+        }
+        body { font-family: 'Inter', sans-serif; color: var(--dark); background: #fff; line-height: 1.7; }
+
+        header {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000; padding: 1.25rem 0;
+        }
+        nav { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1rem; font-weight: 700; text-decoration: none; color: var(--dark); letter-spacing: -0.3px; }
+        .logo span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.3s; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .grad { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        /* PAGE HEADER */
+        .page-header {
+            max-width: 1100px; margin: 0 auto;
+            padding: 9rem 2rem 4rem;
+        }
+        .page-header .eyebrow {
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--primary); margin-bottom: 1rem;
+        }
+        .page-header h1 { font-size: clamp(2.25rem, 4vw, 3rem); font-weight: 700; letter-spacing: -1px; line-height: 1.15; margin-bottom: 1.5rem; }
+        .page-header p { font-size: 1.1rem; color: var(--gray); max-width: 680px; line-height: 1.85; }
+
+        /* SECTION */
+        .section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+        .section + .section { border-top: 1px solid var(--border); }
+        .section-bg { background: var(--light-gray); }
+        .section-bg .section { padding: 4rem 2rem; }
+
+        .section-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 0.75rem; }
+        .section h2 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 1rem; }
+        .section .lead { color: var(--gray); font-size: 1rem; max-width: 680px; line-height: 1.85; margin-bottom: 3rem; }
+
+        /* DISSERTATION */
+        .diss-intro {
+            background: linear-gradient(135deg, #f8f7ff, #fff0f9);
+            border: 1.5px solid #e0dfff; border-radius: 20px;
+            padding: 2.5rem; margin-bottom: 3rem;
+        }
+        .diss-intro .diss-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 0.75rem; }
+        .diss-intro h3 { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin-bottom: 1rem; }
+        .diss-intro p { color: var(--gray); font-size: 0.97rem; line-height: 1.85; margin-bottom: 0.75rem; }
+        .diss-intro .diss-meta { font-size: 0.82rem; color: var(--gray); margin-top: 0.5rem; }
+        .diss-q {
+            font-style: italic; font-size: 1.05rem;
+            color: var(--primary); font-weight: 500;
+            border-left: 3px solid var(--primary);
+            padding-left: 1.25rem; margin: 1.25rem 0;
+        }
+
+        /* AIMS */
+        .aims-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .aim-card {
+            background: white; border: 1.5px solid var(--border);
+            border-radius: 16px; padding: 2rem;
+            display: grid; grid-template-columns: 80px 1fr;
+            gap: 1.5rem; align-items: start;
+            transition: all 0.25s;
+        }
+        .aim-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); border-color: var(--primary); }
+        .aim-number {
+            font-size: 2.5rem; font-weight: 700;
+            line-height: 1; text-align: center;
+            padding-top: 0.15rem;
+        }
+        .aim-card:nth-child(1) .aim-number { color: var(--primary); }
+        .aim-card:nth-child(2) .aim-number { color: var(--secondary); }
+        .aim-card:nth-child(3) .aim-number { color: var(--teal); }
+        .aim-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .aim-title a { color: var(--dark); text-decoration: none; transition: color 0.2s; }
+        .aim-title a:hover { color: var(--primary); }
+        .aim-desc { color: var(--gray); font-size: 0.93rem; line-height: 1.75; margin-bottom: 1rem; }
+        .aim-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .badge {
+            font-size: 0.72rem; font-weight: 600;
+            padding: 0.25rem 0.75rem; border-radius: 100px;
+        }
+        .badge-published { background: #dcfce7; color: #15803d; }
+        .badge-review { background: #fef9c3; color: #854d0e; }
+        .badge-progress { background: #ede9fe; color: #6d28d9; }
+        .badge-ongoing { background: #e0f2fe; color: #075985; }
+
+        /* FRAMEWORKS */
+        .fw-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;
+        }
+        .fw-card {
+            background: white; border-radius: 16px; padding: 1.75rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 2px solid transparent;
+            transition: all 0.25s;
+        }
+        .fw-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.1); }
+        .fw-card:nth-child(1) { border-color: var(--primary); }
+        .fw-card:nth-child(2) { border-color: var(--secondary); }
+        .fw-card:nth-child(3) { border-color: var(--teal); }
+        .fw-card:nth-child(4) { border-color: var(--purple); }
+        .fw-card:nth-child(5) { border-color: #f59e0b; }
+        .fw-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .fw-card:nth-child(1) h3 { color: var(--primary); }
+        .fw-card:nth-child(2) h3 { color: var(--secondary); }
+        .fw-card:nth-child(3) h3 { color: var(--teal); }
+        .fw-card:nth-child(4) h3 { color: var(--purple); }
+        .fw-card:nth-child(5) h3 { color: #d97706; }
+        .fw-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.75; }
+
+        /* OTHER PROJECTS */
+        .op-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .op-card {
+            background: white; border: 1.5px solid var(--border);
+            border-radius: 16px; padding: 2rem; transition: all 0.25s;
+            border-left: 4px solid;
+        }
+        .op-card:nth-child(1) { border-left-color: var(--teal); }
+        .op-card:nth-child(2) { border-left-color: var(--purple); }
+        .op-card:nth-child(3) { border-left-color: var(--primary); }
+        .op-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+        .op-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.5rem; }
+        .op-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .op-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.75; }
+
+        footer { background: var(--light-gray); border-top: 1px solid var(--border); text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--gray); }
+
+        @media (max-width: 720px) {
+            .aim-card { grid-template-columns: 1fr; }
+            .aim-number { font-size: 1.5rem; text-align: left; }
+            .op-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">Reggie <span>Casanova-Perez</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html" class="active">Research</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="cv.html">CV</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="page-header">
+        <p class="eyebrow">Research</p>
+        <h1>From documenting harm<br>to <span class="grad">demanding repair</span></h1>
+        <p>My work follows a deliberate arc: first understanding how discrimination operates within healthcare systems, then learning from how patients resist it, and finally building the frameworks and tools health informatics needs to respond — grounded in patient experience and oriented toward structural accountability.</p>
+    </div>
+
+    <!-- DISSERTATION -->
+    <div class="section">
+        <p class="section-eyebrow">Dissertation</p>
+        <div class="diss-intro">
+            <p class="diss-label">PhD Dissertation · University of Washington · Expected June 2026</p>
+            <h3>Resistance Informatics: Navigating, Challenging, and Setting a Repair-Centered Agenda for Healthcare Systems</h3>
+            <p class="diss-q">"How do LGBTQ+ and BIPOC patients experience and resist discrimination in healthcare, and what repair-centered agenda does their knowledge generate for health informatics?"</p>
+            <p>Discrimination in healthcare is not confined to individual clinicians. It is structured into the workflows, documentation practices, and digital infrastructures that define how patients are categorized, represented, and rendered actionable within health systems. This dissertation develops <em>resistance informatics</em> as a framework — treating patient resistance strategies as the foundation for making health informatics accountable to the communities it harms.</p>
+            <p class="diss-meta">Advisors: Wanda Pratt, PhD &amp; Andrea Hartzler, PhD · NLM Predoctoral Fellowship · NLM Diversity Supplement · UW Population Health Initiative</p>
+        </div>
+
+        <div class="aims-list">
+            <div class="aim-card">
+                <div class="aim-number">01</div>
+                <div>
+                    <h3 class="aim-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8861755/" target="_blank">"Broken Down by Bias": Healthcare Biases Experienced by BIPOC and LGBTQ+ Patients</a></h3>
+                    <p class="aim-desc">Through 25 in-depth interviews with LGBTQ+ and BIPOC patients, this study inductively documented and categorized the types of discrimination patients experience in healthcare encounters — producing a detailed empirical account of how bias operates across clinical interactions, organized into six themes: transactional care, power inequity, communication casualties, bias-embedded medicine, system-level problems, and bigotry in disguise.</p>
+                    <div class="aim-badges">
+                        <span class="badge badge-published">Published · AMIA 2022</span>
+                        <span class="badge badge-ongoing">First Author</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="aim-card">
+                <div class="aim-number">02</div>
+                <div>
+                    <h3 class="aim-title">"From Harm to Repair": Patient-Centered Strategies for Improving Equitable Clinical Interactions</h3>
+                    <p class="aim-desc">A secondary analysis of the same 25 interviews surfacing what patients themselves say would begin to repair their relationship with healthcare providers and systems. Patient-generated strategies are organized across individual, interpersonal, and systemic levels — centering patient knowledge as the foundation for institutional change rather than a supplement to clinical expertise.</p>
+                    <div class="aim-badges">
+                        <span class="badge badge-review">Under Review · Health Psychology &amp; Behavioral Medicine · Jan 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="aim-card">
+                <div class="aim-number">03</div>
+                <div>
+                    <h3 class="aim-title">"Resistance Informatics: A Repair-Centered Agenda for Accountability in Health Information Systems"</h3>
+                    <p class="aim-desc">A conceptual synthesis of Aims 1 and 2, developing a repair-centered agenda for what health informatics must do differently. Grounded in patient experience, oriented toward acknowledging historical harm, and proposing how health information systems can become sites of accountability rather than harm — with particular attention to how power is encoded in clinical workflows, data standards, and digital health infrastructure.</p>
+                    <div class="aim-badges">
+                        <span class="badge badge-progress">In Progress · Expected 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTHER PROJECTS -->
+    <div class="section-bg">
+        <div class="section">
+            <p class="section-eyebrow">Other Projects</p>
+            <h2>Current &amp; past research</h2>
+            <p class="lead">Beyond the dissertation, my research spans GIS-based environmental health tools, applied global health research, and qualitative work on patient-provider communication.</p>
+            <div class="op-grid">
+                <div class="op-card">
+                    <p class="op-label">CLAD Project · UW · 2025–Present</p>
+                    <h3>GIS Tools for Environmental Health Screening</h3>
+                    <p>UX research on web-based GIS tools for environmental health and environmental justice screening. Leading literature review, IRB development, and qualitative research instrument design in collaboration with teams at University of Iowa, UNC Chapel Hill, and Axle Informatics.</p>
+                </div>
+                <div class="op-card">
+                    <p class="op-label">UnBIASED Project · UW · 2019–2024</p>
+                    <h3>Patient Experiences of Bias in Healthcare</h3>
+                    <p>As lead graduate student researcher, designed and executed 25+ in-depth qualitative interviews with LGBTQ+ and BIPOC patients, coordinated team-based qualitative analysis, and mentored undergraduate and graduate coders. The empirical foundation of the dissertation.</p>
+                </div>
+                <div class="op-card">
+                    <p class="op-label">VillageReach · Research Associate · 2023–2025</p>
+                    <h3>Applied Health Equity Research</h3>
+                    <p>Designed and conducted stakeholder interviews with community leaders, healthcare providers, and program implementers. Analyzed qualitative and quantitative data to generate recommendations addressing health equity challenges across Washington State and global contexts.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FRAMEWORKS -->
+    <div class="section">
+        <p class="section-eyebrow">Theoretical &amp; Methodological Frameworks</p>
+        <h2>How I approach the work</h2>
+        <p class="lead">My research integrates theoretical frameworks from social science with the methodological rigor of health informatics — treating lived experience as empirical evidence and analytic input.</p>
+        <div class="fw-grid">
+            <div class="fw-card">
+                <h3>Resistance Informatics</h3>
+                <p>An emerging framework developed through my dissertation: treating patient resistance strategies as the foundation for a repair-centered agenda in health informatics — one that acknowledges historical harm and demands accountability from the systems that perpetuate it.</p>
+            </div>
+            <div class="fw-card">
+                <h3>Intersectionality</h3>
+                <p>I use intersectionality as both an analytic and methodological intervention, examining how systems of privilege and oppression shape data practices, classification, and technological design decisions in healthcare informatics.</p>
+            </div>
+            <div class="fw-card">
+                <h3>Feminist &amp; Queer Theory</h3>
+                <p>Drawing from feminist and queer theory, I interrogate how healthcare systems produce and sustain discrimination, and how technologies can either reinforce or challenge cisheteronormative assumptions embedded in health information systems.</p>
+            </div>
+            <div class="fw-card">
+                <h3>Human-Centered Design</h3>
+                <p>I employ human-centered and participatory research approaches that center patient experience while remaining attentive to system-level constraints and opportunities for structural change.</p>
+            </div>
+            <div class="fw-card">
+                <h3>Community-Based Participatory Research</h3>
+                <p>My methodological approach integrates qualitative interviews, inductive thematic analysis, and collaborative research practices that treat lived experience as empirical evidence rather than anecdote.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Reggie Casanova-Perez · PhD Candidate, University of Washington · Seattle</p>
+</footer>
+
+</body>
+</html>

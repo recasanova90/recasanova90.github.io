@@ -8,893 +8,437 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary-color: #6366f1;
-            --secondary-color: #ec4899;
-            --accent-teal: #14b8a6;
-            --accent-purple: #a855f7;
-            --text-dark: #1e293b;
-            --text-gray: #64748b;
-            --bg-light: #f8fafc;
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --teal: #14b8a6;
+            --purple: #a855f7;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --border: #e2e8f0;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: #fff;
             line-height: 1.7;
-            color: var(--text-dark);
-            background-color: #ffffff;
         }
 
-        /* Header & Navigation */
+        /* NAV */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e2e8f0;
-            z-index: 1000;
-            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+            z-index: 1000; padding: 1.25rem 0;
         }
-
         nav {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1100px; margin: 0 auto;
             padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-            line-height: 1.3;
+            font-size: 1rem; font-weight: 700;
+            text-decoration: none; color: var(--dark);
+            letter-spacing: -0.3px;
         }
-
         .logo span {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: block;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-            position: relative;
+            color: var(--gray); text-decoration: none;
+            font-size: 0.9rem; font-weight: 500;
+            transition: color 0.2s; position: relative;
         }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            content: ''; position: absolute;
+            bottom: -4px; left: 0; width: 0; height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             transition: width 0.3s;
         }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Main Content */
-        main {
-            margin-top: 80px;
-        }
-
-        section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
-
-        /* Hero Section */
+        /* HERO */
         .hero {
+            min-height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
-            min-height: calc(100vh - 80px);
-            padding-top: 3rem;
-            padding-bottom: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
         }
 
         .hero-content h1 {
-            font-size: 3rem;
+            font-size: clamp(2.25rem, 4vw, 3.25rem);
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
+            line-height: 1.15;
             letter-spacing: -1px;
+            margin-bottom: 0.5rem;
         }
-
-        .hero-content .pronouns {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-
-        .hero-content .tagline {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 2rem;
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        .hero-content .highlight {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .grad { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-weight: 600;
+        }
+        .pronouns {
+            color: var(--gray); font-size: 0.95rem;
+            font-weight: 500; margin-bottom: 2rem;
+        }
+        .hero-bio {
+            font-size: 1.1rem; color: var(--gray);
+            line-height: 1.85; margin-bottom: 1.25rem;
+        }
+        .hero-bio strong { color: var(--dark); font-weight: 600; }
+
+        .hero-tags {
+            display: flex; flex-wrap: wrap; gap: 0.5rem;
+            margin: 2rem 0;
+        }
+        .tag {
+            font-size: 0.78rem; font-weight: 500;
+            padding: 0.3rem 0.9rem;
+            border-radius: 100px;
+            background: var(--light-gray);
+            color: var(--gray);
+            border: 1px solid var(--border);
         }
 
-        .hero-image {
-            position: relative;
+        .hero-actions {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+            margin-top: 2rem;
         }
-
-        .hero-image img {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            margin-left: auto;
-            display: block;
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-size: 0.9rem; font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
         }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(99,102,241,0.3); }
+        .btn-outline {
+            border: 1.5px solid var(--border);
+            color: var(--dark); background: white;
+        }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
         .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            display: flex; gap: 1rem; margin-top: 2rem;
         }
-
         .social-links a {
-            width: 45px;
-            height: 45px;
+            width: 42px; height: 42px;
             border-radius: 50%;
-            background: var(--bg-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: all 0.3s;
-            font-weight: 600;
+            background: var(--light-gray);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--dark); text-decoration: none;
+            font-size: 0.8rem; font-weight: 700;
+            transition: all 0.25s;
         }
-
         .social-links a:hover {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99,102,241,0.3);
         }
 
-        /* Research Frameworks Section */
-        .frameworks {
-            background: var(--bg-light);
-        }
+        /* HERO RIGHT */
+        .hero-right { display: flex; flex-direction: column; gap: 1.5rem; }
 
-        h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
-        }
-
-        h2 .gradient-text {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-intro {
-            font-size: 1.15rem;
-            color: var(--text-gray);
-            margin-bottom: 3rem;
-            max-width: 800px;
-        }
-
-        .frameworks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .framework-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .framework-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .framework-card:nth-child(1) {
-            border-color: var(--primary-color);
-        }
-
-        .framework-card:nth-child(2) {
-            border-color: var(--secondary-color);
-        }
-
-        .framework-card:nth-child(3) {
-            border-color: var(--accent-teal);
-        }
-
-        .framework-card:nth-child(4) {
-            border-color: var(--accent-purple);
-        }
-
-        .framework-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .framework-card:nth-child(1) h3 {
-            color: var(--primary-color);
-        }
-
-        .framework-card:nth-child(2) h3 {
-            color: var(--secondary-color);
-        }
-
-        .framework-card:nth-child(3) h3 {
-            color: var(--accent-teal);
-        }
-
-        .framework-card:nth-child(4) h3 {
-            color: var(--accent-purple);
-        }
-
-        .framework-card p {
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-
-        /* Projects Section */
-        .project-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            border-left: 4px solid;
-            transition: all 0.3s;
-        }
-
-        .project-card:nth-child(1) {
-            border-left-color: var(--primary-color);
-        }
-
-        .project-card:nth-child(2) {
-            border-left-color: var(--secondary-color);
-        }
-
-        .project-card:nth-child(3) {
-            border-left-color: var(--accent-teal);
-        }
-
-        .project-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .project-card h3 {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .project-card .project-role {
-            color: var(--text-gray);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .project-card p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        .project-highlights {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .project-highlights li {
-            padding-left: 1.5rem;
+        .hero-img-wrap {
             position: relative;
+        }
+        .hero-img-wrap img {
+            width: 100%; max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: block; margin-left: auto;
+        }
+
+        /* DISSERTATION CALLOUT */
+        .dissertation-card {
+            background: linear-gradient(135deg, #f8f7ff, #fff0f9);
+            border: 1.5px solid #e0dfff;
+            border-radius: 16px;
+            padding: 1.75rem;
+        }
+        .dissertation-card .dc-label {
+            font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--primary); margin-bottom: 0.6rem;
+        }
+        .dissertation-card .dc-title {
+            font-size: 1rem; font-weight: 600;
+            line-height: 1.4; color: var(--dark);
             margin-bottom: 0.75rem;
-            color: var(--text-gray);
+        }
+        .dissertation-card .dc-meta {
+            font-size: 0.82rem; color: var(--gray);
+        }
+        .dissertation-card .dc-link {
+            display: inline-block; margin-top: 0.75rem;
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--primary); text-decoration: none;
+        }
+        .dissertation-card .dc-link:hover { text-decoration: underline; }
+
+        /* ABOUT STRIP */
+        .about-strip {
+            background: var(--light-gray);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .about-strip-inner {
+            max-width: 1100px; margin: 0 auto;
+            padding: 5rem 2rem;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 5rem; align-items: start;
+        }
+        .about-strip h2 {
+            font-size: 2rem; font-weight: 700;
+            letter-spacing: -0.5px; margin-bottom: 1.5rem;
+        }
+        .about-strip p {
+            color: var(--gray); font-size: 1rem;
+            line-height: 1.85; margin-bottom: 1.1rem;
+        }
+        .about-strip p strong { color: var(--dark); }
+
+        .info-grid { display: flex; flex-direction: column; gap: 1.75rem; }
+        .info-item-label {
+            font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--primary); margin-bottom: 0.5rem;
+        }
+        .info-item-value { color: var(--dark); font-size: 0.95rem; }
+        .info-item-value a { color: var(--primary); text-decoration: none; }
+        .info-item-value a:hover { text-decoration: underline; }
+
+        /* QUICK LINKS */
+        .quick-links {
+            max-width: 1100px; margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        .quick-links h2 {
+            font-size: 2rem; font-weight: 700;
+            letter-spacing: -0.5px; margin-bottom: 0.75rem;
+        }
+        .quick-links .sub {
+            color: var(--gray); font-size: 1rem;
+            margin-bottom: 3rem; max-width: 600px;
+        }
+        .ql-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+        }
+        .ql-card {
+            background: white; border: 1.5px solid var(--border);
+            border-radius: 16px; padding: 2rem;
+            text-decoration: none; color: var(--dark);
+            transition: all 0.25s; display: block;
+        }
+        .ql-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 30px rgba(99,102,241,0.12);
+            transform: translateY(-3px);
+        }
+        .ql-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; margin-bottom: 1.25rem;
+        }
+        .ql-card:nth-child(1) .ql-icon { background: #eef2ff; }
+        .ql-card:nth-child(2) .ql-icon { background: #fdf2f8; }
+        .ql-card:nth-child(3) .ql-icon { background: #f0fdfa; }
+        .ql-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .ql-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.65; }
+        .ql-arrow {
+            display: inline-block; margin-top: 1rem;
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--primary);
         }
 
-        .project-highlights li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        /* Publications Section */
-        .publications {
-            background: var(--bg-light);
-        }
-
-        .pub-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
-        }
-
-        .pub-card:hover {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .pub-card .pub-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-        }
-
-        .pub-card .pub-authors {
-            color: var(--text-gray);
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .pub-card .pub-authors strong {
-            color: var(--primary-color);
-        }
-
-        .pub-card .pub-venue {
-            color: var(--text-gray);
-            font-style: italic;
-            font-size: 0.9rem;
-        }
-
-        /* Experience Section */
-        .experience-card {
-            border-left: 3px solid var(--primary-color);
-            padding-left: 2rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .experience-card::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 0;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: var(--primary-color);
-        }
-
-        .experience-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-        }
-
-        .experience-card .role {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .experience-card .period {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .experience-card p {
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-
-        /* Connect Section */
-        .connect {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-align: center;
-        }
-
-        .connect h2,
-        .connect .section-intro {
-            color: white;
-        }
-
-        .connect-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .connect-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
-            min-width: 200px;
-            transition: all 0.3s;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .connect-card:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
-        }
-
-        .connect-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .connect-card a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .connect-card a:hover {
-            text-decoration: underline;
-        }
-
-        /* Footer */
+        /* FOOTER */
         footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-gray);
-            background: var(--bg-light);
+            background: var(--light-gray);
+            border-top: 1px solid var(--border);
+            text-align: center; padding: 2rem;
+            font-size: 0.85rem; color: var(--gray);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content h1 {
-                font-size: 2.25rem;
-            }
-
-            .hero-image img {
-                margin: 2rem auto;
-                max-width: 350px;
-            }
-
-            .nav-links {
-                gap: 1.5rem;
-            }
-
-            .frameworks-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            section {
-                padding: 3rem 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content h1 {
-                font-size: 1.875rem;
-            }
-
-            .hero-content .tagline {
-                font-size: 1.1rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
+        /* RESPONSIVE */
+        @media (max-width: 860px) {
+            .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+            .hero-right { order: -1; }
+            .hero-img-wrap img { max-width: 300px; margin: 0 auto; }
+            .about-strip-inner { grid-template-columns: 1fr; gap: 3rem; }
+            .ql-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#" class="logo"><span>Reggie</span><span>Casanova-Perez</span></a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#frameworks">Research</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#connect">Connect</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="about" class="hero">
-            <div class="hero-content">
-                <h1>Reggie Casanova-Perez</h1>
-                <p class="pronouns">(he/him/él)</p>
-                <p class="tagline">PhD Candidate in Biomedical and Health Informatics</p>
-                <p>
-                    I am a <span class="highlight">queer, trans Latino researcher from Peru</span> and a naturalized American. 
-                    My research examines how healthcare technologies shape experiences of stigma and discrimination for people 
-                    from marginalized communities, particularly LGBTQ+ and BIPOC patients.
-                </p>
-                <p>
-                    I approach this work through the intersection of healthcare, technology, and power, focusing on how 
-                    <span class="highlight">sociotechnical systems influence patient–provider interactions</span> and 
-                    institutional responses to bias.
-                </p>
-                <p>
-                    My research is deeply political, motivated by lived experience—mine and that of other trans folks. 
-                    I use lived experience as empirical evidence to identify system-level failures and to inform the 
-                    intentional design of healthcare technologies that foster safer, more equitable care.
-                </p>
+<header>
+    <nav>
+        <a href="index.html" class="logo">Reggie <span>Casanova-Perez</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="cv.html">CV</a></li>
+        </ul>
+    </nav>
+</header>
 
-                <div class="social-links">
-                    <a href="mailto:reggiecp@uw.edu" title="Email">✉️</a>
-                    <a href="https://www.linkedin.com/in/recasanova/" title="LinkedIn" target="_blank">in</a>
-                    <a href="https://scholar.google.com/citations?user=yLPHD20AAAAJ&hl=es" title="Google Scholar" target="_blank">📚</a>
-                </div>
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Reggie<br><span class="grad">Casanova-</span><br><span class="grad">Perez</span></h1>
+            <p class="pronouns">he/him/él</p>
+
+            <p class="hero-bio">
+                I'm a <strong>queer, trans Latino researcher</strong> from Lima, Peru — now based in Seattle. 
+                I grew up visibly different in a city that had little patience for it, and that experience 
+                never really left me. It became a question I've been asking ever since:
+            </p>
+            <p class="hero-bio" style="font-style: italic; color: #6366f1; font-weight: 500; font-size: 1.05rem;">
+                "How is power encoded into the digital infrastructure of healthcare — and what does that mean for 
+                LGBTQ+ and BIPOC patients who navigate those systems?"
+            </p>
+            <p class="hero-bio">
+                I'm currently completing my PhD in <strong>Biomedical and Health Informatics</strong> at the 
+                University of Washington, where I use qualitative research, queer theory, and human-centered 
+                design to study how discrimination gets built into clinical workflows and digital health systems — 
+                and how patients resist it.
+            </p>
+
+            <div class="hero-tags">
+                <span class="tag">Health Informatics</span>
+                <span class="tag">Resistance Informatics</span>
+                <span class="tag">Qualitative Research</span>
+                <span class="tag">Queer Theory</span>
+                <span class="tag">Health Equity</span>
+                <span class="tag">Digital Rights</span>
             </div>
-            <div class="hero-image">
+
+            <div class="hero-actions">
+                <a href="research.html" class="btn btn-primary">My Research</a>
+                <a href="publications.html" class="btn btn-outline">Publications</a>
+            </div>
+
+            <div class="social-links">
+                <a href="mailto:reggiecp@uw.edu" title="Email">✉</a>
+                <a href="https://www.linkedin.com/in/recasanova/" target="_blank" title="LinkedIn">in</a>
+                <a href="https://scholar.google.com/citations?user=yLPHD20AAAAJ&hl=es" target="_blank" title="Google Scholar">GS</a>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-img-wrap">
                 <img src="images/reggie-profile.jpg" alt="Reggie Casanova-Perez smiling while holding a small dog, wearing a colorful patterned shirt">
             </div>
-        </section>
+            <div class="dissertation-card">
+                <p class="dc-label">Current Dissertation</p>
+                <p class="dc-title">Resistance Informatics: Navigating, Challenging, and Setting a Repair-Centered Agenda for Healthcare Systems</p>
+                <p class="dc-meta">Expected June 2026 · Advisors: Wanda Pratt, PhD & Andrea Hartzler, PhD · University of Washington</p>
+                <a href="research.html" class="dc-link">Read about the research →</a>
+            </div>
+        </div>
+    </section>
 
-        <!-- Research Frameworks Section -->
-        <section id="frameworks" class="frameworks">
-            <h2><span class="gradient-text">Research Frameworks</span></h2>
-            <p class="section-intro">
-                My work integrates multiple theoretical and methodological approaches to understand and address 
-                how power, identity, and technology intersect in healthcare settings.
-            </p>
-            <div class="frameworks-grid">
-                <div class="framework-card">
-                    <h3>Intersectionality</h3>
-                    <p>
-                        I use intersectionality as both an analytic and methodological intervention, examining how 
-                        systems of privilege and oppression shape data practices, classification, and technological 
-                        design decisions in healthcare informatics.
+    <section class="about-strip">
+        <div class="about-strip-inner">
+            <div>
+                <h2>A little more<br><span class="grad">about me</span></h2>
+                <p>
+                    I was born and raised in Lima, Peru, where I earned both my undergraduate degree in 
+                    Informatics Engineering and a fully funded master's in Biomedical Informatics in Global Health 
+                    from Universidad Peruana Cayetano Heredia — supported by Peru's national science 
+                    scholarship, <strong>CONCYTEC/CienciActiva</strong>.
+                </p>
+                <p>
+                    My master's research brought me into Peru's public health system, working alongside 
+                    regulators, facility managers, and citizens to design and prototype tools that make 
+                    health systems more accountable. That question — who are these systems actually built for? — 
+                    has guided everything since.
+                </p>
+                <p>
+                    I moved to Seattle in 2018 to start my PhD, supported by an <strong>NLM predoctoral 
+                    fellowship</strong>, an <strong>NLM Diversity Supplement</strong>, and a 
+                    <strong>UW Population Health Initiative award</strong>. Outside of the lab, I'm also 
+                    co-founding a research studio with two MD/MPH colleagues focused on public and global 
+                    health research across the US, UK, and Latin America.
+                </p>
+                <p>
+                    I serve on DEI committees at both AMIA and UW's BIME department, and on the steering 
+                    committee of ACM Queer in SIG. I believe research is political, and I'm not interested 
+                    in pretending otherwise.
+                </p>
+            </div>
+            <div class="info-grid">
+                <div>
+                    <p class="info-item-label">Current Position</p>
+                    <p class="info-item-value">PhD Candidate, Biomedical and Health Informatics<br>University of Washington, Seattle</p>
+                </div>
+                <div>
+                    <p class="info-item-label">Languages</p>
+                    <p class="info-item-value">Spanish (native) · English (fluent) · Italian (basic)</p>
+                </div>
+                <div>
+                    <p class="info-item-label">Contact</p>
+                    <p class="info-item-value">
+                        <a href="mailto:reggiecp@uw.edu">reggiecp@uw.edu</a><br>
+                        <a href="https://www.reggiecp.phd" target="_blank">reggiecp.phd</a>
                     </p>
                 </div>
-                <div class="framework-card">
-                    <h3>Feminist & Queer Theory</h3>
-                    <p>
-                        Drawing from feminist and queer theory, I interrogate how healthcare systems produce and 
-                        sustain stigma, and how technologies can either reinforce or challenge cisheteronormative 
-                        assumptions embedded in health information systems.
-                    </p>
-                </div>
-                <div class="framework-card">
-                    <h3>Human-Centered Design</h3>
-                    <p>
-                        I employ human-centered design and participatory research approaches that center patient 
-                        experience while remaining attentive to system-level constraints and opportunities for change.
-                    </p>
-                </div>
-                <div class="framework-card">
-                    <h3>Community-Based Participatory Research</h3>
-                    <p>
-                        My methodological approach integrates qualitative interviews, inductive thematic analysis, 
-                        and collaborative research practices that treat lived experience as empirical evidence and 
-                        analytic input.
-                    </p>
+                <div>
+                    <p class="info-item-label">Service</p>
+                    <p class="info-item-value">AMIA DEI Committee · BIME DEI Committee · ACM Queer in SIG</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Projects Section -->
-        <section id="projects">
-            <h2><span class="gradient-text">Featured Projects</span></h2>
-            <p class="section-intro">
-                My research projects center patient experiences of bias and discrimination to inform the design 
-                of more equitable healthcare technologies and practices.
-            </p>
+    <section class="quick-links">
+        <h2>Explore my <span class="grad">work</span></h2>
+        <p class="sub">Three years of research, a dissertation in progress, and a growing body of published work across health informatics and HCI.</p>
+        <div class="ql-grid">
+            <a href="research.html" class="ql-card">
+                <div class="ql-icon">🔬</div>
+                <h3>Research Projects</h3>
+                <p>From documenting healthcare discrimination to building a repair-centered agenda for health informatics. Three dissertation aims, two ongoing projects.</p>
+                <span class="ql-arrow">Explore research →</span>
+            </a>
+            <a href="publications.html" class="ql-card">
+                <div class="ql-icon">📄</div>
+                <h3>Publications</h3>
+                <p>Peer-reviewed work published in JAMIA, AMIA, CHI, and Journal of Biomedical Informatics, with first-author and co-first-author contributions.</p>
+                <span class="ql-arrow">View publications →</span>
+            </a>
+            <a href="cv.html" class="ql-card">
+                <div class="ql-icon">📋</div>
+                <h3>Curriculum Vitae</h3>
+                <p>Full academic CV including research experience, funding history, service, and technical skills. Available for download as PDF.</p>
+                <span class="ql-arrow">View CV →</span>
+            </a>
+        </div>
+    </section>
+</main>
 
-            <div class="project-card">
-                <h3>UnBIASED Project</h3>
-                <p class="project-role">Lead Graduate Researcher | 2019–2024</p>
-                <p>
-                    A multi-year qualitative study examining how BIPOC and LGBTQ+ patients experience implicit bias 
-                    in healthcare encounters. This project forms the empirical foundation of my dissertation research 
-                    and has resulted in multiple peer-reviewed publications.
-                </p>
-                <ul class="project-highlights">
-                    <li>Led design and execution of 25+ in-depth patient interviews</li>
-                    <li>Coordinated team-based qualitative coding and analysis workflows</li>
-                    <li>Published findings in JAMIA (co-first author) and AMIA (first author)</li>
-                    <li>Developed conceptual model of how bias breaks down patient-provider communication</li>
-                </ul>
-            </div>
+<footer>
+    <p>© 2026 Reggie Casanova-Perez · PhD Candidate, University of Washington · Seattle</p>
+</footer>
 
-            <div class="project-card">
-                <h3>CLAD Project</h3>
-                <p class="project-role">Graduate Research Assistant | 2025–Present</p>
-                <p>
-                    Currently partnering with the project PI to define UX research approaches and study design for 
-                    examining clinical decision-making processes.
-                </p>
-                <ul class="project-highlights">
-                    <li>Designing research instruments including interview guides and consent documentation</li>
-                    <li>Leading IRB proposal preparation and submission</li>
-                    <li>Supporting early-stage qualitative data collection and analysis planning</li>
-                </ul>
-            </div>
-
-            <div class="project-card">
-                <h3>Dissertation Research</h3>
-                <p class="project-role">PhD Candidate | In Progress</p>
-                <p>
-                    My dissertation extends the UnBIASED findings to explore how patient-identified sources of harm 
-                    and patient-generated strategies for navigating biased healthcare systems can inform the design 
-                    of technologies, workflows, and institutional practices that reduce stigma and improve care.
-                </p>
-                <ul class="project-highlights">
-                    <li>Categorizing patient strategies as expertise that surfaces where systems fail</li>
-                    <li>Translating lived experiences into actionable guidance for healthcare improvement</li>
-                    <li>Contributing to more equitable and accountable healthcare environments</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Publications Section -->
-        <section id="publications" class="publications">
-            <h2><span class="gradient-text">Selected Publications</span></h2>
-            <p class="section-intro">
-                My work has been published in leading informatics and HCI venues, examining bias, discrimination, 
-                and equity in healthcare technologies.
-            </p>
-
-            <div class="pub-card">
-                <div class="pub-title">
-                    Maybe they had a bad day: how LGBTQ and BIPOC patients react to bias in healthcare and struggle to speak out
-                </div>
-                <div class="pub-authors">
-                    C Apodaca*, <strong>R Casanova-Perez*</strong>, E Bascom, D Mohanraj, C Lane, D Vidyarthi, 
-                    E Beneteau, J Sabin, W Pratt, N Weibel, AL Hartzler (*co-first authors)
-                </div>
-                <div class="pub-venue">
-                    Journal of the American Medical Informatics Association, 29(12):2075-2082, 2022
-                </div>
-            </div>
-
-            <div class="pub-card">
-                <div class="pub-title">
-                    Broken down by bias: Healthcare biases experienced by BIPOC and LGBTQ+ patients
-                </div>
-                <div class="pub-authors">
-                    <strong>R Casanova-Perez</strong>, C Apodaca, E Bascom, D Mohanraj, C Lane, D Vidyarthi, 
-                    E Beneteau, J Sabin, W Pratt, N Weibel, AL Hartzler
-                </div>
-                <div class="pub-venue">
-                    AMIA Annual Symposium Proceedings, 2022;2021:275-284
-                </div>
-            </div>
-
-            <div class="pub-card">
-                <div class="pub-title">
-                    Opportunities for incorporating intersectionality into biomedical informatics
-                </div>
-                <div class="pub-authors">
-                    OJ Bear Don't Walk, A Paullada, A Everhart, <strong>R Casanova-Perez</strong>, T Cohen, T Veinot
-                </div>
-                <div class="pub-venue">
-                    Journal of Biomedical Informatics, 154:104653, 2024
-                </div>
-            </div>
-
-            <div class="pub-card">
-                <div class="pub-title">
-                    Designing Communication Feedback Systems To Reduce Healthcare Providers' Implicit Biases In Patient Encounters
-                </div>
-                <div class="pub-authors">
-                    E Bascom, <strong>R Casanova-Perez</strong>, L Dirks, C Lane, N Rizvi, J Sabin, W Pratt, 
-                    B Wood, N Weibel, AL Hartzler
-                </div>
-                <div class="pub-venue">
-                    CHI Conference on Human Factors in Computing Systems, 2024
-                </div>
-            </div>
-
-            <div class="pub-card">
-                <div class="pub-title">
-                    Toward Patient-Centered Informatics Solutions: The Role of Intersectionality
-                </div>
-                <div class="pub-authors">
-                    E Bascom, <strong>R Casanova-Perez</strong>, H Ramaswamy, D Mohanraj, J Sabin, W Pratt, 
-                    N Weibel, AL Hartzler
-                </div>
-                <div class="pub-venue">
-                    AMIA Annual Symposium Proceedings, 2021
-                </div>
-            </div>
-
-            <div class="pub-card">
-                <div class="pub-title">
-                    Queering the EHR: Uncovering the embedded cisheteronormativity in health information technology
-                </div>
-                <div class="pub-authors">
-                    <strong>R Casanova-Perez</strong>, W Pratt, AL Hartzler
-                </div>
-                <div class="pub-venue">
-                    AMIA Annual Symposium Proceedings, 2022
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience">
-            <h2><span class="gradient-text">Research Experience</span></h2>
-            <p class="section-intro">
-                My training combines computer science, biomedical informatics, and collaborative participatory 
-                research approaches.
-            </p>
-
-            <div class="experience-card">
-                <h3>University of Washington</h3>
-                <div class="role">PhD Candidate, Biomedical and Health Informatics</div>
-                <div class="period">2018 – 2026 (Expected)</div>
-                <p>
-                    Advisors: Dr. Wanda Pratt and Dr. Andrea Hartzler<br>
-                    NLM Pre-doctoral Trainee (2019) and Diversity Supplement Recipient (2020)
-                </p>
-            </div>
-
-            <div class="experience-card">
-                <h3>VillageReach</h3>
-                <div class="role">Research Associate, Research, Evidence, and Learning Team</div>
-                <div class="period">2023 – 2025</div>
-                <p>
-                    Designed and conducted stakeholder interviews, developed research instruments, and analyzed 
-                    qualitative and quantitative data for community-based participatory research projects addressing 
-                    health equity challenges.
-                </p>
-            </div>
-
-            <div class="experience-card">
-                <h3>Universidad Peruana Cayetano Heredia</h3>
-                <div class="role">Master of Science, Biomedical Informatics in Global Health</div>
-                <div class="period">2016 – 2018</div>
-                <p>
-                    Advisor: Dr. Cesar Carcamo Cavagnaro, MD, PhD
-                </p>
-            </div>
-
-            <div class="experience-card">
-                <h3>Universidad Peruana Cayetano Heredia</h3>
-                <div class="role">Bachelor of Science, Informatics Engineering</div>
-                <div class="period">2007 – 2011</div>
-                <p>
-                    Foundation in computer science and technology integration with scientific inquiry.
-                </p>
-            </div>
-        </section>
-
-        <!-- Connect Section -->
-        <section id="connect" class="connect">
-            <h2>Let's Connect</h2>
-            <p class="section-intro">
-                I'm always interested in conversations about health equity, participatory design, 
-                and building more just healthcare systems.
-            </p>
-            
-            <div class="connect-links">
-                <div class="connect-card">
-                    <h3>Email</h3>
-                    <p>reggiecp [ at ] uw [dot] edu</p>
-                </div>
-                <div class="connect-card">
-                    <h3>LinkedIn</h3>
-                    <a href="https://www.linkedin.com/in/recasanova/" target="_blank">in/recasanova</a>
-                </div>
-                <div class="connect-card">
-                    <h3>Google Scholar</h3>
-                    <a href="https://scholar.google.com/citations?user=yLPHD20AAAAJ&hl=es" target="_blank">View Profile</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Reggie Casanova-Perez. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add active state to navigation on scroll
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - 100)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
